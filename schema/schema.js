@@ -2,10 +2,15 @@ import { gql } from "apollo-server";
 
 export const typeDefs = gql`
   type Query {
-    courses: [Course!]!
-    course(id: ID!): Course
+    courses(filter: CoursesFilter): [Course!]!
+    course(id: ID!): Course    
     genres: [Genre!]!
     genre(id: ID!): Genre
+    reviews: [Review!]!
+  }
+
+  input CoursesFilter {
+    discount: Boolean
   }
 
   type Course {
@@ -15,11 +20,20 @@ export const typeDefs = gql`
     price: Float!
     discount: Boolean!
     genre: Genre
+    reviews: [Review!]!
   }
 
   type Genre {
     id: ID!
     name: String!
     courses: [Course!]!
+  }
+
+  type Review {
+    id: ID!
+    date: String!
+    title: String!
+    comment: String!
+    rating: Int!
   }
 `;
